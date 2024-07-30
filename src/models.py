@@ -13,6 +13,7 @@ class User(Base):
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
+    password = Column(String(250), nullable= False)
     
 class Character(Base):
     __tablename__ = 'character'
