@@ -13,7 +13,8 @@ class User(Base):
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
-    
+    favorites = relationship("Favorites", back_populates="user")
+
 class Character(Base):
     __tablename__ = 'character'
     id = Column(Integer, primary_key=True)
@@ -21,6 +22,7 @@ class Character(Base):
     birth_year = Column(Integer, nullable=False)
     eye_color = Column (String(120), nullable=False)
     hair_color = Column (String(120), nullable=False)
+    favorites = relationship("Favorites", back_populates="character")
 
 class Planet(Base):
     __tablename__ = 'planet'
@@ -29,6 +31,7 @@ class Planet(Base):
     rotation_period = Column(Integer, nullable=False)
     diameter = Column (String(120), nullable=False)
     climate = Column (String(120), nullable=False)
+    favorites = relationship("Favorites", back_populates="planet")
 
 class Favorites(Base):
     __tablename__ = 'favorites'
@@ -38,7 +41,6 @@ class Favorites(Base):
     character_id = Column(Integer, ForeignKey('character.id'))
     planet_id = Column(Integer, ForeignKey('planet.id'))
     
-    user = relationship(User)
     planet = relationship(Planet)
     character = relationship(Character)
     def to_dict(self):
